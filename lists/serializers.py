@@ -7,6 +7,7 @@ class UserSerializer(serializers.Serializer):
 	l_name=serializers.CharField()
 	new_notif=serializers.IntegerField(read_only=True)
 	full_name=serializers.SerializerMethodField(read_only=True)
+	
 	def get_full_name(self,obj):
 		return (obj.f_name+" "+obj.l_name)
 
@@ -54,7 +55,6 @@ class TodoSerializer(serializers.Serializer):
 		instance.created=validated_data.get('created',instance.created)
 		instance.updated=validated_data.get('updated',instance.updated)
 		instance.users=validated_data.get('users',instance.users)
-		# instance.marked=validated_data.get('validated_data',validated_data)
 		attach=validated_data.pop('attachment',None)
 		if attach:
 			instance.attachment.set(attach)

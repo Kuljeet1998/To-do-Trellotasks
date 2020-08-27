@@ -147,4 +147,3 @@ class Order(generics.ListAPIView):
     serializer_class = TodoSerializer
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['created']
-
