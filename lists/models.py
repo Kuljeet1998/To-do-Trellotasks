@@ -7,8 +7,13 @@ class User(models.Model):
 	last_name=models.CharField(max_length=15)
 	new_notif=models.IntegerField(default=0)
 
+	@property
+	def full_name(self):
+		return "{first_name} {last_name}".format(first_name=self.first_name,last_name=self.last_name)
+	
+
 	def __str__(self):
-		return self.f_name+" w "+str(self.new_notif)+" notification(s)"
+		return "{full_name} has {notification} notification(s)".format(full_name=self.full_name,notification=self.new_notif)
 
 
 class Attachment(models.Model):
@@ -38,5 +43,5 @@ class Notification(models.Model):
 	todos=models.ForeignKey(Todo,on_delete=models.CASCADE,related_name="notifications")
 
 	def __str__(self):
-		str1="State "+str(self.state)+" changed to "+str(self.new_state)+" in "+str(self.todo_user_id)
-		return str1
+		detail="State {initial} changed to {new} in {user}".format(initial=str(self.state),new=str(self.new_state),user=str(self.todo_user_id))
+		return detail
